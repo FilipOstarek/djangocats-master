@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Detail filmu{% endblock %}
+{% block css %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col-sm-12 bg-danger">
+        <h2 class="display-4 text-center">Podrobné informace</h2>
+    </div>
+</div>
+<div class="mt-5 mb-3">
+    <div class="card mx-auto dvacetpet" style="width: 25%;">
+        <div class="card-body mx-auto text-center">
+            <h2 class="card-title text-center">{{ kocka_detail.jmeno }}</h2>
+            {% if kocka_detail.foto.fotka %}
+                <img class="card-img-top" src="{{ kocka_detail.foto.fotka.url }}" alt="{{ kocka_detail.foto.nazev_fotky }}" style="float:left" >
+            {% endif %}
+            <h5 class="card-text">Druh: {{ kocka_detail.druh }}</h5>
+            <h5 class="card-text">Roky: {{ kocka_detail.vek }} Váha: {{ kocka_detail.vaha }}</h5>
+            <p class="card-text">Popisek: {{ kocka_detail.popisek }}</p>
+        </div>
+    </div>
+</div>
+{% if user.is_authenticated %}
+<div class="row mb-3">
+    <div class="col-sm-12 text-center">
+        {% if perms.cats.change_description_of_the_cat %}
+        <a href="{% url 'kocka-update' kocka_detail.pk %}" class="btn btn-info">Upravit</a>
+        {% endif %}
+        {% if perms.cats.delete_description_of_the_cat %}
+        <a href="{% url 'kocka-delete' kocka_detail.pk %}" class="btn btn-danger">Smazat</a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}

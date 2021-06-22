@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Editace kocky{% endblock %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col-sm-12 bg-danger">
+        <h2 class="display-4 text-center">Editace kočky</h2>
+    </div>
+</div>
+{% if user.is_authenticated %}
+<div class="row mt-5 mb-3">
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+{% endif %}
+{% endblock %}

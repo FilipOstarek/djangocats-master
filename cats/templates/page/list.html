@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load bootstrap_pagination %}
+{% block title %}{{ view_title }}{% endblock %}
+
+{% block content %}
+<div class="row mb-3">
+            <div class="col-sm-12 bg-danger">
+                <h2 class="display-4 text-center">{{ nazev }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            {% for kocka in cats_photo %}
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex">
+                <div class="card mt-2">
+                    <div class="card-body">
+                    {% if kocka.foto.fotka %}
+                        <div style="width:100%; text-align:center">
+                            <img class="card-img-top img-adjusted" src="{{ kocka.foto.fotka.url }}" alt="{{ kocka.foto.nazev_fotky }}" >
+                        </div>
+                    {% endif %}
+                        <h4 class="card-title">{{ kocka.jmeno }}</h4>
+                        <h5 class="card-text">Druh: {{ kocka.druh }}</h5>
+                        <h5 class="card-text">Roky: {{ kocka.vek }} Váha: {{ kocka.vaha }}</h5>
+                        <p class="card-text">Popisek: {{ kocka.popisek }}</p>
+                        <a href="{% url 'kocka_detail' kocka.pk %}" class="btn btn-info">Podrobnosti</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if user.is_authenticated %}
+        {% if perms.cats.add_description_of_the_cat %}
+            <div class="row mt-3">
+                <div class="col-sm-12 text-center">
+                    <a href="{% url 'kocka-create' %}" class="btn btn-info">Nový film</a>
+                </div>
+            </div>
+        {% endif %}
+        {% endif %}
+        {% if is_paginated %}
+        <div class="row mt-5">
+            <div class="col-12">
+            {% bootstrap_paginate page_obj range=10 %}
+            </div>
+        </div>
+        {% endif %}
+
+{% endblock %}

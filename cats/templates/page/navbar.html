@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-md bg-info navbar-dark">
+      <!-- Brand -->
+      <a class="navbar-brand text-body" href="#">NAP</a>
+
+      <!-- Toggler/collapsibe Button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar links -->
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'index' %}">Úvodní stránka</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+           {% if user.is_authenticated %}
+             <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Uživatel: {{ user.get_username }}</a></li>
+             <li class="nav-item"><a href="{% url 'logout'%}" class="nav-link">Odhlásit se</a></li>
+           {% else %}
+             <li class="nav-item"><a href="{% url 'login'%}?next={{request.path}}" class="nav-link">Přihlásit se</a></li>
+            <li class="nav-item"><a href="{% url 'signup'%}" class="nav-link">Zaregistrovat</a></li>
+           {% endif %}
+        </ul>
+      </div>
+        <div class="row mt-1">
+            <div class="col-sm-12">
+                <h5 class="text-white">{{ nazev_poctu }} {{ number }}</h5>
+            </div>
+        </div>
+    </nav>

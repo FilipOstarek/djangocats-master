@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Editace kocky{% endblock %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col-sm-12 bg-danger">
+        <h2 class="display-4 text-center">Smazání kočky</h2>
+    </div>
+</div>
+{% if user.is_authenticated %}
+<div class="row mt-5 mb-3">
+    <p>Určitě chcete smazat tuto kočku ?</p>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="Yes, delete.">
+    </form>
+</div>
+{% endif %}
+{% endblock %}
